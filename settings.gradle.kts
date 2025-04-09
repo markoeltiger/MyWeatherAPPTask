@@ -21,4 +21,8 @@ dependencyResolutionManagement {
 
 rootProject.name = "MyWeatherAPPTask"
 include(":app")
- 
+include(":core")
+include(":domain")
+include(":data")
+include(":features")
+include(":uikit")
