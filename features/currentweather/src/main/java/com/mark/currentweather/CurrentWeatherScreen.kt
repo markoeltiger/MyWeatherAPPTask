@@ -37,8 +37,7 @@ fun CurrentWeatherScreen(navController: NavController?) {
     val viewModel: CurrentWeatherViewModel = hiltViewModel()
     val weatherState by viewModel.weatherState.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
-    print("weatherState${weatherState?.maxTemp.toString()}")
-    Box(
+     Box(
         modifier = Modifier
             .fillMaxSize()
             .systemBarsPadding()
@@ -59,8 +58,8 @@ fun CurrentWeatherScreen(navController: NavController?) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             if (!isLoading)
-            WeatherHeader(weatherState)
-            else{
+                WeatherHeader(weatherState)
+            else {
                 LoadingIndicator()
             }
             Spacer(modifier = Modifier.height(16.dp))
@@ -78,6 +77,7 @@ fun CurrentWeatherScreen(navController: NavController?) {
         BottomNavigationBar(modifier = Modifier.align(Alignment.BottomCenter))
     }
 }
+
 @Composable
 fun LoadingIndicator() {
     Box(
@@ -89,6 +89,7 @@ fun LoadingIndicator() {
         )
     }
 }
+
 @Composable
 fun WeatherHeader(weatherState: CurrentWeatherState?) {
     Column(
@@ -141,7 +142,7 @@ fun HouseIllustration() {
 
 @Composable
 fun ForecastDetails(navController: NavController?) {
-    Row (
+    Row(
         modifier = Modifier
             .fillMaxWidth()
 
@@ -149,13 +150,11 @@ fun ForecastDetails(navController: NavController?) {
     ) {
 
 
-
-
         // Hourly Forecast
-        IconButton(onClick = {navController?.navigateUp()}) {
+        IconButton(onClick = { navController?.navigateUp() }) {
 
             Icon(
-                painter = painterResource(id =R.drawable.ic_launcher_foreground), // Replace with your drawable
+                painter = painterResource(id = R.drawable.ic_launcher_foreground), // Replace with your drawable
                 contentDescription = "Location Icon",
                 tint = Color.White
             )
@@ -195,7 +194,7 @@ fun BottomNavigationBar(modifier: Modifier = Modifier) {
 @Composable
 fun GreetingPreview() {
 
-        val navigationController: NavController? = null
+    val navigationController: NavController? = null
     CurrentWeatherScreen(navigationController)
 
 

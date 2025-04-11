@@ -1,5 +1,6 @@
 package com.mark.homefeature
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
@@ -25,11 +26,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.mark.core.navigation.Screen.CurrentWeather
 import com.mark.uikit.colors.LightGray
 import com.mark.uikit.colors.PurpleDark
@@ -40,6 +43,9 @@ import com.mark.uikit.colors.Yellow
 @Composable
 fun HomeScreen(navController: NavController?) {
     var cityName by remember { mutableStateOf("") }
+    val viewModel: HomeViewModel = hiltViewModel()
+
+    val state = viewModel.uiState
 
      Box(
         modifier = Modifier
@@ -93,7 +99,9 @@ fun HomeScreen(navController: NavController?) {
 
             OutlinedTextField(
                 value = cityName,
-                onValueChange = { cityName = it },
+                onValueChange = { cityName = it
+                    viewModel.onCityNameChange(it)
+                                },
                 label = {
                     Text(
                         text = "Enter City Name",
@@ -121,8 +129,16 @@ fun HomeScreen(navController: NavController?) {
             )
 
             Spacer(modifier = Modifier.height(48.dp))
+            val context = LocalContext.current
              Button(
-                onClick = { navController?.navigate(CurrentWeather.route) },
+                onClick = {
+                    if (!cityName.isNullOrEmpty()){
+                    navController?.navigate(CurrentWeather.route)
+                    }else
+                    {
+                        Toast.makeText(context, "Enter City Name", Toast.LENGTH_SHORT).show()
+                    }
+                          },
                 modifier = Modifier
                     .width(200.dp)
                     .height(50.dp),
