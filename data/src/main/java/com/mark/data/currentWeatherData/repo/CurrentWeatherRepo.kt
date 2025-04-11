@@ -3,8 +3,8 @@ package com.mark.data.currentWeatherData.repo
 
 import com.mark.data.BuildConfig
 import com.mark.data.currentWeatherData.api.CurrentWeatherApi
-import com.mark.domain.currentUseCaseDomain.repo.ICurrentWeatherRepo
-import com.mark.domain.currentUseCaseDomain.response.CurrentWeatherResponse
+import com.mark.domain.currentDomain.repo.ICurrentWeatherRepo
+import com.mark.domain.currentDomain.response.CurrentWeatherResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject

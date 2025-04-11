@@ -1,6 +1,6 @@
-package com.mark.domain.currentUseCaseDomain.repo
+package com.mark.domain.currentDomain.repo
 
-import com.mark.domain.currentUseCaseDomain.response.CurrentWeatherResponse
+import com.mark.domain.currentDomain.response.CurrentWeatherResponse
 import kotlinx.coroutines.flow.Flow
 
 interface ICurrentWeatherRepo {

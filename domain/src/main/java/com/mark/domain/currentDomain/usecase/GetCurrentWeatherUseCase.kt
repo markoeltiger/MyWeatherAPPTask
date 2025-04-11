@@ -1,9 +1,9 @@
-package com.mark.domain.currentUseCaseDomain.usecase
+package com.mark.domain.currentDomain.usecase
 
 
-import com.mark.domain.currentUseCaseDomain.CurrentWeatherResult
-import com.mark.domain.currentUseCaseDomain.mapToCurrentWeatherResult
-import com.mark.domain.currentUseCaseDomain.repo.ICurrentWeatherRepo
+import com.mark.domain.currentDomain.CurrentWeatherResult
+import com.mark.domain.currentDomain.mapToCurrentWeatherResult
+import com.mark.domain.currentDomain.repo.ICurrentWeatherRepo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject

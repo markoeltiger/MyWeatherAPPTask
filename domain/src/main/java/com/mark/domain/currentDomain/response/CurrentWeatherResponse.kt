@@ -1,4 +1,4 @@
-package com.mark.domain.currentUseCaseDomain.response
+package com.mark.domain.currentDomain.response
 
 import com.google.gson.annotations.SerializedName
 
