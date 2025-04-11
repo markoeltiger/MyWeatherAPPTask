@@ -60,6 +60,7 @@ dependencies {
     implementation(libs.okhttp.logging)
     implementation(libs.hilt)
     kapt(libs.hilt.compiler)
+    implementation(libs.hilt.testing)
     //data
     implementation(project(":data"))
     implementation(project(":domain"))

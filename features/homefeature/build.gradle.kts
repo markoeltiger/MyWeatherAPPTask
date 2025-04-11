@@ -70,7 +70,16 @@ dependencies {
     implementation(libs.lifecycle.viewmodel.compose)
     implementation(libs.lifecycle.runtime.compose)
     implementation(libs.navigation.compose)
+    //hilt
     implementation(libs.hilt)
     implementation(libs.hilt.navigation.compose)
     kapt(libs.hilt.compiler)
+    //test
+    implementation(libs.coroutines.test)
+    testImplementation(libs.hilt.testing)
+
+    androidTestImplementation(libs.hilt.testing)
+    kaptTest(libs.hilt.compiler)
+    testImplementation(kotlin("test"))
+
 }
