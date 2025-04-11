@@ -1,7 +1,7 @@
-package com.mark.domain.currentUseCaseDomain
+package com.mark.domain.currentDomain
 
-import com.mark.domain.currentUseCaseDomain.entities.CurrentWeatherModel
-import com.mark.domain.currentUseCaseDomain.response.CurrentWeatherResponse
+import com.mark.domain.currentDomain.entities.CurrentWeatherModel
+import com.mark.domain.currentDomain.response.CurrentWeatherResponse
 
 
 fun CurrentWeatherResponse.mapToCurrentWeatherModel(): CurrentWeatherModel {

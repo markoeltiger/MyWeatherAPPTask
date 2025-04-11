@@ -10,7 +10,7 @@ android {
     namespace = "com.mark.homefeature"
     compileSdk = 35
     lint {
-        baseline = file("lint-baseline.xml")
+        baseline = null
     }
     defaultConfig {
         minSdk = 24

@@ -3,8 +3,8 @@ package com.mark.currentweather
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mark.domain.currentUseCaseDomain.CurrentWeatherResult
-import com.mark.domain.currentUseCaseDomain.usecase.IGetCurrentWeatherUseCase
+import com.mark.domain.currentDomain.CurrentWeatherResult
+import com.mark.domain.currentDomain.usecase.IGetCurrentWeatherUseCase
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

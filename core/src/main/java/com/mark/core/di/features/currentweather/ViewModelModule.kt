@@ -2,9 +2,9 @@ package com.mark.core.di.features.currentweather
 
 
 import com.mark.data.currentWeatherData.repo.CurrentWeatherRepo
-import com.mark.domain.currentUseCaseDomain.repo.ICurrentWeatherRepo
-import com.mark.domain.currentUseCaseDomain.usecase.GetCurrentWeatherUseCase
-import com.mark.domain.currentUseCaseDomain.usecase.IGetCurrentWeatherUseCase
+import com.mark.domain.currentDomain.repo.ICurrentWeatherRepo
+import com.mark.domain.currentDomain.usecase.GetCurrentWeatherUseCase
+import com.mark.domain.currentDomain.usecase.IGetCurrentWeatherUseCase
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

@@ -1,4 +1,4 @@
-package com.mark.domain.currentUseCaseDomain.entities
+package com.mark.domain.currentDomain.entities
 
 data class CurrentWeatherModel (
     val city: String,

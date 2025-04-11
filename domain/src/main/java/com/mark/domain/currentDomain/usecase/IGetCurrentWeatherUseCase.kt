@@ -1,6 +1,6 @@
-package com.mark.domain.currentUseCaseDomain.usecase
+package com.mark.domain.currentDomain.usecase
 
-import com.mark.domain.currentUseCaseDomain.CurrentWeatherResult
+import com.mark.domain.currentDomain.CurrentWeatherResult
 
 import kotlinx.coroutines.flow.Flow
 
