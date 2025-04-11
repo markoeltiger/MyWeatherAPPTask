@@ -24,11 +24,15 @@ import com.mark.forcastfeature.R
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import com.mark.domain.forcastDomain.response.Forecastday
 import com.mark.forcastfeature.ForecastIntent
+import com.mark.uikit.toDayName
+import java.util.List
 
 @Composable
 fun WeatherScreen(navController: NavController?, city: String) {
     val viewModel: ForecastViewModel = hiltViewModel()
+    val state by viewModel.state.collectAsState()
 
     LaunchedEffect(key1 = city) {
         viewModel.processIntent(ForecastIntent.LoadForecast(city))
@@ -47,6 +51,7 @@ fun WeatherScreen(navController: NavController?, city: String) {
                 )
             )
     ) {
+        if (!state.isLoading){
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -56,7 +61,7 @@ fun WeatherScreen(navController: NavController?, city: String) {
             Spacer(modifier = Modifier.height(48.dp))
 
             Text(
-                text = "North America",
+                text = "${city}",
                 color = Color.White,
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold
@@ -66,13 +71,13 @@ fun WeatherScreen(navController: NavController?, city: String) {
                 modifier = Modifier.padding(top = 4.dp)
             ) {
                 Text(
-                    text = "Max: 24°",
+                    text = "Max: ${state.maxTemp}°",
                     color = Color.White,
                     fontSize = 18.sp
                 )
                 Spacer(modifier = Modifier.width(16.dp))
                 Text(
-                    text = "Min:18°",
+                    text = "Min:${state.minTemp}°",
                     color = Color.White,
                     fontSize = 18.sp
                 )
@@ -80,7 +85,6 @@ fun WeatherScreen(navController: NavController?, city: String) {
 
             Spacer(modifier = Modifier.height(32.dp))
 
-            // 7-Days Forecast title
             Text(
                 text = "7-Days Forecasts",
                 color = Color.White,
@@ -91,12 +95,10 @@ fun WeatherScreen(navController: NavController?, city: String) {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Forecast days with LazyRow
-            ForecastLazyRow()
+            ForecastLazyRow(state.days)
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Air Quality Card
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(16.dp),
@@ -160,7 +162,6 @@ fun WeatherScreen(navController: NavController?, city: String) {
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Sunrise and UV Index row
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
@@ -281,20 +282,33 @@ fun WeatherScreen(navController: NavController?, city: String) {
                 }
             }
         }
+        }
+        else{
+            LoadingIndicator()
+        }
     }
 }
-
 @Composable
-fun ForecastLazyRow() {
-    // Sample forecast data for 7 days
+fun LoadingIndicator() {
+    Box(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        CircularProgressIndicator(
+            modifier = Modifier.align(Alignment.Center),
+            color = Color.White
+        )
+    }
+}
+@Composable
+fun ForecastLazyRow(days: List<Forecastday>?) {
     val forecastData = listOf(
-        ForecastDay("Mon", "19°C", R.drawable.baseline_ac_unit_24, Color(0xFF7953A9)),
-        ForecastDay("Tue", "18°C", R.drawable.baseline_ac_unit_24, Color(0xFF645B9A)),
-        ForecastDay("Wed", "18°C", R.drawable.baseline_ac_unit_24, Color(0xFF645B9A)),
-        ForecastDay("Thu", "19°C", R.drawable.baseline_ac_unit_24, Color(0xFF7953A9)),
-        ForecastDay("Fri", "21°C", R.drawable.baseline_ac_unit_24, Color(0xFF7953A9)),
-        ForecastDay("Sat", "22°C", R.drawable.baseline_ac_unit_24, Color(0xFF8E459A)),
-        ForecastDay("Sun", "20°C", R.drawable.baseline_ac_unit_24, Color(0xFF645B9A))
+        ForecastDay("${days?.get(0)?.dateEpoch?.toDayName()}", "${days?.get(0)?.day?.avgtempC}°C", R.drawable.baseline_ac_unit_24, Color(0xFF7953A9)),
+        ForecastDay("${days?.get(1)?.dateEpoch?.toDayName()}", "${days?.get(1)?.day?.avgtempC}°C", R.drawable.baseline_ac_unit_24, Color(0xFF645B9A)),
+        ForecastDay("${days?.get(2)?.dateEpoch?.toDayName()}", "${days?.get(2)?.day?.avgtempC}°C", R.drawable.baseline_ac_unit_24, Color(0xFF645B9A)),
+        ForecastDay("${days?.get(2)?.dateEpoch?.toDayName()}", "${days?.get(2)?.day?.avgtempC}°C", R.drawable.baseline_ac_unit_24, Color(0xFF7953A9)),
+        ForecastDay("${days?.get(2)?.dateEpoch?.toDayName()}", "${days?.get(2)?.day?.avgtempC}°C", R.drawable.baseline_ac_unit_24, Color(0xFF7953A9)),
+        ForecastDay("${days?.get(2)?.dateEpoch?.toDayName()}", "${days?.get(2)?.day?.avgtempC}°C", R.drawable.baseline_ac_unit_24, Color(0xFF8E459A)),
+        ForecastDay("${days?.get(2)?.dateEpoch?.toDayName()}", "${days?.get(2)?.day?.avgtempC}°C", R.drawable.baseline_ac_unit_24, Color(0xFF645B9A))
     )
 
     LazyRow(
