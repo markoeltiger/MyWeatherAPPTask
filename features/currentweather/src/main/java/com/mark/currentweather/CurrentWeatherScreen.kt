@@ -1,5 +1,6 @@
 package com.mark.currentweather
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
@@ -14,9 +15,12 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Brush
@@ -28,17 +32,27 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.platform.LocalContext
 import com.mark.uikit.colors.PurpleDark
 import com.mark.uikit.colors.PurpleLight
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.mark.core.navigation.Screen
+import com.mark.core.navigation.Screen.CurrentWeather
+import com.mark.core.navigation.withCity
 
 @Composable
-fun CurrentWeatherScreen(navController: NavController?,city:String) {
+fun CurrentWeatherScreen(navController: NavController?, city: String) {
     val viewModel: CurrentWeatherViewModel = hiltViewModel()
     val weatherState by viewModel.weatherState.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
-    viewModel.fetchWeatherData(city)
-      Box(
+
+
+    LaunchedEffect(key1 = city) {
+        viewModel.fetchWeatherData(city)
+    }
+
+    Box(
         modifier = Modifier
             .fillMaxSize()
             .systemBarsPadding()
@@ -69,13 +83,12 @@ fun CurrentWeatherScreen(navController: NavController?,city:String) {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            ForecastDetails(navController)
+            ForecastDetails(navController, city)
 
             Spacer(modifier = Modifier.height(16.dp))
         }
 
-        // Bottom Navigation Bar
-        BottomNavigationBar(modifier = Modifier.align(Alignment.BottomCenter))
+
     }
 }
 
@@ -96,7 +109,7 @@ fun WeatherHeader(weatherState: CurrentWeatherState?) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Weather Icon
+
         Image(
             painter = painterResource(id = com.mark.core.R.drawable.applogo), // Replace with your drawable
             contentDescription = "Weather Icon",
@@ -142,61 +155,81 @@ fun HouseIllustration() {
 }
 
 @Composable
-fun ForecastDetails(navController: NavController?) {
-    Row(
+fun ForecastDetails(navController: NavController?, city: String) {
+    Column(
         modifier = Modifier
             .fillMaxWidth()
-
-            .padding(16.dp)
-    ) {
-
-
-        // Hourly Forecast
-        IconButton(onClick = { navController?.navigateUp() }) {
-
-            Icon(
-                painter = painterResource(id = R.drawable.ic_launcher_foreground), // Replace with your drawable
-                contentDescription = "Location Icon",
-                tint = Color.White
-            )
-
-        }
-        Text(text = "Change City")
-    }
-}
-
-
-@Composable
-fun BottomNavigationBar(modifier: Modifier = Modifier) {
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .background(
-                color = Color(0xFF5E17EB), // Purple background
-                shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
-            )
             .padding(16.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
+        val context = LocalContext.current
 
-        IconButton(onClick = { /* Handle add click */ }) {
+        // First button (Change City) - Centered
+        Button(
+            onClick = {
+                navController?.navigateUp()
+            },
+            modifier = Modifier
+                .height(50.dp),
+            shape = RoundedCornerShape(25.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = Color.Yellow),
+        ) {
             Icon(
-                painter = painterResource(id = R.drawable.ic_launcher_foreground), // Replace with your drawable
-                contentDescription = "Add Icon",
-                tint = Color.White
+                painter = painterResource(id = R.drawable.baseline_edit_location_24),
+                contentDescription = "Location Icon",
+                tint = PurpleDark
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            Text(
+                text = "Change City",
+                style = TextStyle(
+                    color = PurpleDark,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold
+                )
             )
         }
 
+        OutlinedButton(
+            onClick = {
+                navController?.navigate(Screen.ForcastWeather.withCity(city = city))
+
+            },
+            modifier = Modifier
+                .height(50.dp),
+            shape = RoundedCornerShape(25.dp),
+            colors = ButtonDefaults.outlinedButtonColors(
+                contentColor = Color.White
+            ),
+            border = androidx.compose.foundation.BorderStroke(
+                width = 2.dp,
+                color = Color.White
+            )
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_launcher_foreground), // Replace with a forecast icon
+                contentDescription = "Forecast Icon",
+                tint = Color.White,
+                modifier = Modifier.size(24.dp)
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            Text(
+                text = "Go to Forecast",
+                style = TextStyle(
+                    color = Color.White,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            )
+        }
     }
 }
+
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-
     val navigationController: NavController? = null
-    CurrentWeatherScreen( navigationController,city = "cairo")
-
-
+    CurrentWeatherScreen(navigationController, city = "cairo")
 }

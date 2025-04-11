@@ -1,7 +1,7 @@
 package com.mark.data.currentWeatherData.api
 
 
-import com.mark.domain.currentUseCaseDomain.response.CurrentWeatherResponse
+import com.mark.domain.currentDomain.response.CurrentWeatherResponse
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST

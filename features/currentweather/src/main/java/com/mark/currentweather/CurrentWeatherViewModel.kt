@@ -3,8 +3,8 @@ package com.mark.currentweather
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mark.domain.currentUseCaseDomain.CurrentWeatherResult
-import com.mark.domain.currentUseCaseDomain.usecase.IGetCurrentWeatherUseCase
+import com.mark.domain.currentDomain.CurrentWeatherResult
+import com.mark.domain.currentDomain.usecase.IGetCurrentWeatherUseCase
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -28,34 +28,34 @@ class CurrentWeatherViewModel @Inject constructor(
 
 
     internal fun fetchWeatherData(city: String) {
-        viewModelScope.launch {
-            _isLoading.value = true
-            getCurrentWeatherUseCase.execute(city).collect { result ->
-                when (result) {
-                    is CurrentWeatherResult.SuccessResult -> {
+            viewModelScope.launch {
+                _isLoading.value = true
+                getCurrentWeatherUseCase.execute(city).collect { result ->
+                    when (result) {
+                        is CurrentWeatherResult.SuccessResult -> {
 
 
-                        currentWeather = CurrentWeatherState(
-                            temperature = result.currentWeather.temperature.toString(),
-                            city = result.currentWeather.city,
-                            precipitation = result.currentWeather.humidity.toString(),
-                            maxTemp = result.currentWeather.maxTemperature.toString(),
-                            minTemp = result.currentWeather.minTemperature.toString(),
-                        )
-                        _weatherState.value = currentWeather
+                            currentWeather = CurrentWeatherState(
+                                temperature = result.currentWeather.temperature.toString(),
+                                city = result.currentWeather.city,
+                                precipitation = result.currentWeather.humidity.toString(),
+                                maxTemp = result.currentWeather.maxTemperature.toString(),
+                                minTemp = result.currentWeather.minTemperature.toString(),
+                            )
+                            _weatherState.value = currentWeather
+                        }
+
+                        else -> {
+                            Log.d("TAG", "fetchWeatherData: Error")
+                        }
                     }
 
-                    else -> {
-                        Log.d("TAG", "fetchWeatherData: Error")
-                    }
                 }
 
+
+
+                _isLoading.value = false
             }
-
-
-
-            _isLoading.value = false
-        }
     }
 }
 
