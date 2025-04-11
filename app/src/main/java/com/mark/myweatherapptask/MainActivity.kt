@@ -1,5 +1,6 @@
 package com.mark.myweatherapptask
 
+import WeatherScreen
 import android.R.attr.type
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -16,6 +17,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.mark.core.navigation.Screen
 import com.mark.currentweather.CurrentWeatherScreen
+import com.mark.currentweather.ForecastDetails
 import com.mark.homefeature.HomeScreen
 import com.mark.myweatherapptask.ui.theme.MyWeatherAPPTaskTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,7 +38,14 @@ class MainActivity : ComponentActivity() {
                         arguments = listOf(navArgument("city") { type = NavType.StringType })
                     ) {
                         val city = it.arguments?.getString("city") ?: ""
-                        CurrentWeatherScreen(navController = navController, city = city)                    }
+                        CurrentWeatherScreen(navController = navController, city = city)
+                    }
+                    composable(Screen.ForcastWeather.route,
+                        arguments = listOf(navArgument("city") { type = NavType.StringType })
+                    ) {
+                        val city = it.arguments?.getString("city") ?: ""
+                        WeatherScreen(navController = navController, city = city)
+                    }
                 }
             }
         }

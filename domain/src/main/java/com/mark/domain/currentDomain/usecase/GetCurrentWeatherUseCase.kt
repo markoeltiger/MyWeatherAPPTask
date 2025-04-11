@@ -9,12 +9,12 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class GetCurrentWeatherUseCase @Inject constructor(
-        private val receiptRepo: ICurrentWeatherRepo
+        private val forcastRepo: ICurrentWeatherRepo
 ) : IGetCurrentWeatherUseCase {
 
 
     override fun execute(city: String): Flow<CurrentWeatherResult> {
-        return receiptRepo.getCurrentWeather(city).map {
+        return forcastRepo.getCurrentWeather(city).map {
             it.mapToCurrentWeatherResult()
         }
     }

@@ -89,6 +89,7 @@
         implementation(project(":core"))
         implementation(project(":features:homefeature"))
         implementation(project(":features:currentweather"))
+        implementation(project(":features:forcastfeature"))
 
         // Testing
         testImplementation(libs.junit)

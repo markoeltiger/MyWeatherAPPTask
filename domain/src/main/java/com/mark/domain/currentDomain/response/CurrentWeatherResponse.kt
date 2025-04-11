@@ -1,6 +1,7 @@
 package com.mark.domain.currentDomain.response
 
 import com.google.gson.annotations.SerializedName
+import com.mark.domain.forcastDomain.entities.ForcasttWeatherModel
 
 data class CurrentWeatherResponse(
     @SerializedName("location") var location: Location? = Location(),
@@ -60,3 +61,4 @@ data class Current(
     @SerializedName("gust_kph") var gustKph: Double? = null
 
 )
+

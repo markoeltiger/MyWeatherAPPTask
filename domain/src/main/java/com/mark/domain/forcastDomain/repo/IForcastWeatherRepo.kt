@@ -6,5 +6,4 @@ import kotlinx.coroutines.flow.Flow
 
 interface IForcastWeatherRepo {
     fun getForcastWeather(city:String): Flow<ForcastWeatherResponse>
-
 }

@@ -28,34 +28,34 @@ class CurrentWeatherViewModel @Inject constructor(
 
 
     internal fun fetchWeatherData(city: String) {
-        viewModelScope.launch {
-            _isLoading.value = true
-            getCurrentWeatherUseCase.execute(city).collect { result ->
-                when (result) {
-                    is CurrentWeatherResult.SuccessResult -> {
+            viewModelScope.launch {
+                _isLoading.value = true
+                getCurrentWeatherUseCase.execute(city).collect { result ->
+                    when (result) {
+                        is CurrentWeatherResult.SuccessResult -> {
 
 
-                        currentWeather = CurrentWeatherState(
-                            temperature = result.currentWeather.temperature.toString(),
-                            city = result.currentWeather.city,
-                            precipitation = result.currentWeather.humidity.toString(),
-                            maxTemp = result.currentWeather.maxTemperature.toString(),
-                            minTemp = result.currentWeather.minTemperature.toString(),
-                        )
-                        _weatherState.value = currentWeather
+                            currentWeather = CurrentWeatherState(
+                                temperature = result.currentWeather.temperature.toString(),
+                                city = result.currentWeather.city,
+                                precipitation = result.currentWeather.humidity.toString(),
+                                maxTemp = result.currentWeather.maxTemperature.toString(),
+                                minTemp = result.currentWeather.minTemperature.toString(),
+                            )
+                            _weatherState.value = currentWeather
+                        }
+
+                        else -> {
+                            Log.d("TAG", "fetchWeatherData: Error")
+                        }
                     }
 
-                    else -> {
-                        Log.d("TAG", "fetchWeatherData: Error")
-                    }
                 }
 
+
+
+                _isLoading.value = false
             }
-
-
-
-            _isLoading.value = false
-        }
     }
 }
 

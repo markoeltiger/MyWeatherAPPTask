@@ -7,7 +7,6 @@ data class CurrentWeatherModel (
     val temperature: Double,
     val minTemperature: Double,
     val maxTemperature: Double,
-
     val condition: String,
     val iconUrl: String,
     val humidity: Double,
