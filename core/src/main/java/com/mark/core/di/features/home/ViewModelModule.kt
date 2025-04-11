@@ -1,4 +1,4 @@
-package com.mark.core.home
+package com.mark.core.di.features.home
 
 
 import com.mark.data.currentWeatherData.repo.CurrentWeatherRepo

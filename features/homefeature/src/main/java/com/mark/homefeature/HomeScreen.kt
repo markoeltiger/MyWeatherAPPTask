@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.mark.core.navigation.Screen.CurrentWeather
+import com.mark.core.navigation.withCity
 import com.mark.uikit.colors.LightGray
 import com.mark.uikit.colors.PurpleDark
 import com.mark.uikit.colors.PurpleLight
@@ -47,7 +48,7 @@ fun HomeScreen(navController: NavController?) {
 
     val state = viewModel.uiState
 
-     Box(
+    Box(
         modifier = Modifier
             .fillMaxSize()
             .background(
@@ -66,7 +67,7 @@ fun HomeScreen(navController: NavController?) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
         ) {
-             Image(
+            Image(
                 painter = painterResource(id = R.mipmap.ic_launcher_foreground), // Replace with your drawable resource
                 contentDescription = "Weather Icon",
                 modifier = Modifier
@@ -76,7 +77,7 @@ fun HomeScreen(navController: NavController?) {
 
             Spacer(modifier = Modifier.height(32.dp))
 
-             Text(
+            Text(
                 text = "Weather",
                 style = TextStyle(
                     color = White,
@@ -85,7 +86,7 @@ fun HomeScreen(navController: NavController?) {
                 )
             )
 
-             Text(
+            Text(
                 text = "ForeCasts",
                 style = TextStyle(
                     color = Yellow,
@@ -99,9 +100,10 @@ fun HomeScreen(navController: NavController?) {
 
             OutlinedTextField(
                 value = cityName,
-                onValueChange = { cityName = it
+                onValueChange = {
+                    cityName = it
                     viewModel.onCityNameChange(it)
-                                },
+                },
                 label = {
                     Text(
                         text = "Enter City Name",
@@ -130,20 +132,20 @@ fun HomeScreen(navController: NavController?) {
 
             Spacer(modifier = Modifier.height(48.dp))
             val context = LocalContext.current
-             Button(
+            Button(
                 onClick = {
-                    if (!cityName.isNullOrEmpty()){
-                    navController?.navigate(CurrentWeather.route)
-                    }else
-                    {
+                    if (!cityName.isNullOrEmpty()) {
+                        viewModel.onSubmitCity()
+                        navController?.navigate(CurrentWeather.withCity(cityName))
+                    } else {
                         Toast.makeText(context, "Enter City Name", Toast.LENGTH_SHORT).show()
                     }
-                          },
+                },
                 modifier = Modifier
                     .width(200.dp)
                     .height(50.dp),
                 shape = RoundedCornerShape(25.dp),
-                colors = ButtonDefaults.buttonColors(containerColor  = Color.Yellow)
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Yellow)
             ) {
                 Text(
                     text = "Get Start",

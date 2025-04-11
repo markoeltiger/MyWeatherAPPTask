@@ -33,11 +33,12 @@ import com.mark.uikit.colors.PurpleLight
 import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
-fun CurrentWeatherScreen(navController: NavController?) {
+fun CurrentWeatherScreen(navController: NavController?,city:String) {
     val viewModel: CurrentWeatherViewModel = hiltViewModel()
     val weatherState by viewModel.weatherState.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
-     Box(
+    viewModel.fetchWeatherData(city)
+      Box(
         modifier = Modifier
             .fillMaxSize()
             .systemBarsPadding()
@@ -195,7 +196,7 @@ fun BottomNavigationBar(modifier: Modifier = Modifier) {
 fun GreetingPreview() {
 
     val navigationController: NavController? = null
-    CurrentWeatherScreen(navigationController)
+    CurrentWeatherScreen( navigationController,city = "cairo")
 
 
 }
