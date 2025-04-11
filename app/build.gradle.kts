@@ -18,6 +18,8 @@
             versionName = "1.0"
 
             testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+            buildConfigField("String", "API_KEY", "${findProperty("API_KEY")}")
+
         }
 
         buildTypes {
@@ -37,6 +39,7 @@
             jvmTarget = "11"
         }
         buildFeatures {
+            buildConfig = true
             compose = true
         }
     }
@@ -81,14 +84,19 @@
 
         // Timber (Logging)
         implementation(libs.timber)
-
-        // Feature modules (example - adjust based on what you include)
+        //features
         implementation(project(":domain"))
         implementation(project(":core"))
+        implementation(project(":features:homefeature"))
+        implementation(project(":features:currentweather"))
 
-        // Testing (optional in :app)
+        // Testing
         testImplementation(libs.junit)
         androidTestImplementation(libs.androidx.junit)
         androidTestImplementation(libs.espresso.core)
-
+        //retrofit
+        implementation(libs.retrofit)
+        implementation(libs.retrofit.gson)
+        implementation(libs.okhttp)
+        implementation(libs.okhttp.logging)
     }
