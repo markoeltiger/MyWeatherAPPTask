@@ -1,4 +1,4 @@
-package com.mark.core.currentweather
+package com.mark.core.di.features.currentweather
 
 
 import com.mark.data.currentWeatherData.repo.CurrentWeatherRepo

@@ -63,4 +63,6 @@ dependencies {
     implementation(libs.okhttp.logging)
     implementation(libs.hilt)
     kapt(libs.hilt.compiler)
+    implementation (libs.datastore)
+
 }
