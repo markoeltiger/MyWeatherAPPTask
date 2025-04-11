@@ -9,7 +9,9 @@ plugins {
 android {
     namespace = "com.mark.homefeature"
     compileSdk = 35
-
+    lint {
+        baseline = file("lint-baseline.xml")
+    }
     defaultConfig {
         minSdk = 24
         targetSdk = 35
