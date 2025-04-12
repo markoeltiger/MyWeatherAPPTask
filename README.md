@@ -68,9 +68,9 @@ Based on this Figma file:
 
 ## 📷 Screenshots
 
-| Search City | Current Weather | 7-Day Forecast |
-|-------------|------------------|----------------|
-| ![search](screenshots/search.png) | ![weather](screenshots/weather.png) | ![forecast](screenshots/forecast.png) |
+| Search City                         | Current Weather                       | 7-Day Forecast                        |
+|-------------------------------------|---------------------------------------|---------------------------------------|
+| ![search](screenshots/weather1.jpeg) | ![weather](screenshots/weather2.jpeg) | ![forecast](screenshots/weather3.jpeg) |
 
 
 

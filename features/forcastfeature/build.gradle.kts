@@ -71,4 +71,8 @@ dependencies {
     implementation(libs.hilt)
     implementation(libs.hilt.navigation.compose)
     kapt(libs.hilt.compiler)
+    //Glide
+    implementation(libs.glide)
+    implementation(libs.glide.compose)
+    kapt(libs.glide.compiler)
 }
