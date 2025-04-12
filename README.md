@@ -77,5 +77,5 @@ Based on this Figma file:
 ---
 
 ## 📷 Video
-
-![Video](screenshots/weathervideo.mp4)
+[🎥 Watch demo video](screenshots/weathervideo.mp4)
+<video src="https://github.com/markoeltiger/MyWeatherAPPTask/raw/refs/heads/main/screenshots/weathervideo.mp4" controls width="600" />
