@@ -112,23 +112,19 @@ fun WeatherHeader(weatherState: CurrentWeatherState?) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        val icon = "https:${weatherState?.icon}"
         GlideImage(
-            model = weatherState?.icon,
+            model = icon,
             contentDescription = "Weather Icon",
-            modifier = Modifier.size(100.dp),
+            modifier = Modifier.size(150.dp),
             contentScale = ContentScale.Crop
         )
-        Image(
-            painter = painterResource(id = com.mark.core.R.drawable.applogo), // Replace with your drawable
-            contentDescription = "Weather Icon",
-            modifier = Modifier.size(100.dp),
-            contentScale = ContentScale.Fit
-        )
+
 
         Spacer(modifier = Modifier.height(8.dp))
 
         Text(
-            text = weatherState?.temperature.toString(),
+            text = "${weatherState?.temperature.toString()}°",
             style = TextStyle(
                 color = Color.White,
                 fontSize = 64.sp,

@@ -18,7 +18,8 @@ fun ForcastWeatherResponse.mapToForcastWeatherModel(): ForcasttWeatherModel {
         current?.condition?.icon.toString(),
         current?.humidity ?: 0.0,
         current?.windMph ?: 0.0,
-        forcast = forecast
+        forcast = forecast,
+        uvIndex = current.uv.toString()
     )
 }
 

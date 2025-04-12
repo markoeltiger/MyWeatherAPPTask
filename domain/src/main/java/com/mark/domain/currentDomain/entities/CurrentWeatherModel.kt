@@ -10,6 +10,7 @@ data class CurrentWeatherModel (
     val condition: String,
     val iconUrl: String,
     val humidity: Double,
-    val windSpeed: Double
+    val windSpeed: Double,
+    val uvSpeed: Double
 )
 

@@ -24,6 +24,9 @@ import com.mark.forcastfeature.R
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.layout.ContentScale
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
 import com.mark.domain.forcastDomain.response.Forecastday
 import com.mark.forcastfeature.ForecastIntent
 import com.mark.uikit.toDayName
@@ -120,14 +123,14 @@ fun WeatherScreen(navController: NavController?, city: String) {
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
-                            text = "AIR QUALITY",
+                            text = "Condition",
                             color = Color.White,
                             fontSize = 14.sp
                         )
                     }
 
                     Text(
-                        text = "3-Low Health Risk",
+                        text = state.condition.toString(),
                         color = Color.White,
                         fontSize = 24.sp,
                         fontWeight = FontWeight.Bold,
@@ -140,23 +143,6 @@ fun WeatherScreen(navController: NavController?, city: String) {
                         modifier = Modifier.padding(vertical = 8.dp)
                     )
 
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            text = "See more",
-                            color = Color.White,
-                            fontSize = 16.sp
-                        )
-
-                        Icon(
-                            imageVector = Icons.Default.KeyboardArrowRight,
-                            contentDescription = "See more",
-                            tint = Color.White
-                        )
-                    }
                 }
             }
 
@@ -190,14 +176,14 @@ fun WeatherScreen(navController: NavController?, city: String) {
                             )
                             Spacer(modifier = Modifier.width(8.dp))
                             Text(
-                                text = "SUNRISE",
+                                text = "Humadity",
                                 color = Color.White,
                                 fontSize = 14.sp
                             )
                         }
 
                         Text(
-                            text = "5:28 AM",
+                            text = state.humadity,
                             color = Color.White,
                             fontSize = 24.sp,
                             fontWeight = FontWeight.Bold,
@@ -246,7 +232,7 @@ fun WeatherScreen(navController: NavController?, city: String) {
                         }
 
                         Text(
-                            text = "4",
+                            text = state.uvIndex,
                             color = Color.White,
                             fontSize = 24.sp,
                             fontWeight = FontWeight.Bold,
@@ -306,6 +292,7 @@ fun ForecastLazyRow(days: List<Forecastday>?) {
             day = forecast.dateEpoch.toDayName().orEmpty(),
             temperature = "${forecast.day.avgtempC ?: "--"}°C",
             iconResId = R.drawable.baseline_ac_unit_24,
+            icon=forecast.day.condition.icon,
             color = when (index % 3) {
                 0 -> Color(0xFF7953A9)
                 1 -> Color(0xFF645B9A)
@@ -323,17 +310,20 @@ fun ForecastLazyRow(days: List<Forecastday>?) {
                 temperature = day.temperature,
                 day = day.day,
                 iconResId = day.iconResId,
+                icon = day.icon,
                 color = day.color
             )
         }
     }
 }
 
+@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun DayForecast(
     temperature: String,
     day: String,
     iconResId: Int,
+    icon: String,
     color: Color
 ) {
     Column(
@@ -352,11 +342,13 @@ fun DayForecast(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        Icon(
-            painter = painterResource(id = iconResId),
-            contentDescription = "Weather icon",
-            tint = Color.White,
-            modifier = Modifier.size(36.dp)
+
+        val icon = "https:${icon}"
+        GlideImage(
+            model = icon,
+            contentDescription = "Weather Icon",
+            modifier = Modifier.size(50.dp),
+            contentScale = ContentScale.Crop
         )
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -373,6 +365,7 @@ fun DayForecast(
     val day: String,
     val temperature: String,
     val iconResId: Int,
+    val icon: String,
     val color: Color
 )
 

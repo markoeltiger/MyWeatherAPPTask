@@ -37,7 +37,12 @@ class CurrentWeatherViewModel @Inject constructor(
                             precipitation = result.currentWeather.humidity.toString(),
                             maxTemp = result.currentWeather.maxTemperature.toString(),
                             minTemp = result.currentWeather.minTemperature.toString(),
-                            icon = result.currentWeather.iconUrl.toString()
+                            icon = result.currentWeather.iconUrl.toString(),
+                            condition = result.currentWeather.condition.toString(),
+                            humadity = result.currentWeather.humidity.toString(),
+                            windSpeed = result.currentWeather.windSpeed.toString(),
+                            uvIndex = result.currentWeather.uvSpeed.toString(),
+                            sunRise = result.currentWeather.windSpeed.toString()
                         )
                         _weatherState.value = currentWeather
                     }

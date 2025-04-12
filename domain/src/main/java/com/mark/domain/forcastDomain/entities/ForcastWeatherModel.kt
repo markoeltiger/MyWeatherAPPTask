@@ -13,6 +13,7 @@ data class ForcasttWeatherModel (
     val iconUrl: String,
     val humidity: Any,
     val windSpeed: Double,
-    val forcast: Forecast
+    val forcast: Forecast,
+    val uvIndex: String
 )
 

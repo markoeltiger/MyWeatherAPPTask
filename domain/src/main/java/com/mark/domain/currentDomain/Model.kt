@@ -15,7 +15,8 @@ fun CurrentWeatherResponse.mapToCurrentWeatherModel(): CurrentWeatherModel {
         current?.condition?.text.toString(),
         current?.condition?.icon.toString(),
         current?.humidity ?: 0.0,
-        current?.windMph ?: 0.0
+        current?.windMph ?: 0.0,
+        current?.uv?:0.0,
 
     )
 }

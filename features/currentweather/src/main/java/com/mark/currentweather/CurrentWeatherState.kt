@@ -7,4 +7,10 @@ data class CurrentWeatherState(
     val icon: String,
     val maxTemp: String,
     val minTemp: String,
+    val condition: String,
+    val humadity: String,
+    val sunRise: String,
+    val uvIndex: String,
+    val windSpeed: String,
+
 )
