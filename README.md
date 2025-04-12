@@ -78,3 +78,4 @@ Based on this Figma file:
 
 ## 📷 Video
 
+![Video](screenshots/weathervideo.mp4)
