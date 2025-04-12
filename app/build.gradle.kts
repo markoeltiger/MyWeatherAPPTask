@@ -21,7 +21,12 @@
             buildConfigField("String", "API_KEY", "${findProperty("API_KEY")}")
 
         }
-
+        packaging {
+            resources {
+                excludes += "META-INF/LICENSE.md"
+                excludes += "META-INF/LICENSE-notice.md" // Add more if needed
+            }
+        }
         buildTypes {
             release {
                 isMinifyEnabled = false
