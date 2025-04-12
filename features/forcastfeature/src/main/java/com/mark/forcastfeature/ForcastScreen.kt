@@ -301,15 +301,18 @@ fun LoadingIndicator() {
 }
 @Composable
 fun ForecastLazyRow(days: List<Forecastday>?) {
-    val forecastData = listOf(
-        ForecastDay("${days?.get(0)?.dateEpoch?.toDayName()}", "${days?.get(0)?.day?.avgtempC}°C", R.drawable.baseline_ac_unit_24, Color(0xFF7953A9)),
-        ForecastDay("${days?.get(1)?.dateEpoch?.toDayName()}", "${days?.get(1)?.day?.avgtempC}°C", R.drawable.baseline_ac_unit_24, Color(0xFF645B9A)),
-        ForecastDay("${days?.get(2)?.dateEpoch?.toDayName()}", "${days?.get(2)?.day?.avgtempC}°C", R.drawable.baseline_ac_unit_24, Color(0xFF645B9A)),
-        ForecastDay("${days?.get(2)?.dateEpoch?.toDayName()}", "${days?.get(2)?.day?.avgtempC}°C", R.drawable.baseline_ac_unit_24, Color(0xFF7953A9)),
-        ForecastDay("${days?.get(2)?.dateEpoch?.toDayName()}", "${days?.get(2)?.day?.avgtempC}°C", R.drawable.baseline_ac_unit_24, Color(0xFF7953A9)),
-        ForecastDay("${days?.get(2)?.dateEpoch?.toDayName()}", "${days?.get(2)?.day?.avgtempC}°C", R.drawable.baseline_ac_unit_24, Color(0xFF8E459A)),
-        ForecastDay("${days?.get(2)?.dateEpoch?.toDayName()}", "${days?.get(2)?.day?.avgtempC}°C", R.drawable.baseline_ac_unit_24, Color(0xFF645B9A))
-    )
+    val forecastData = days?.mapIndexed { index, forecast ->
+        ForecastDay(
+            day = forecast.dateEpoch?.toDayName().orEmpty(),
+            temperature = "${forecast.day?.avgtempC ?: "--"}°C",
+            iconResId = R.drawable.baseline_ac_unit_24,
+            color = when (index % 3) {
+                0 -> Color(0xFF7953A9)
+                1 -> Color(0xFF645B9A)
+                else -> Color(0xFF8E459A)
+            }
+        )
+    } ?: emptyList()
 
     LazyRow(
         contentPadding = PaddingValues(horizontal = 4.dp),
