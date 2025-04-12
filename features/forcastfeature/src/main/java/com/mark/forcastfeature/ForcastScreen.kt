@@ -303,8 +303,8 @@ fun LoadingIndicator() {
 fun ForecastLazyRow(days: List<Forecastday>?) {
     val forecastData = days?.mapIndexed { index, forecast ->
         ForecastDay(
-            day = forecast.dateEpoch?.toDayName().orEmpty(),
-            temperature = "${forecast.day?.avgtempC ?: "--"}°C",
+            day = forecast.dateEpoch.toDayName().orEmpty(),
+            temperature = "${forecast.day.avgtempC ?: "--"}°C",
             iconResId = R.drawable.baseline_ac_unit_24,
             color = when (index % 3) {
                 0 -> Color(0xFF7953A9)

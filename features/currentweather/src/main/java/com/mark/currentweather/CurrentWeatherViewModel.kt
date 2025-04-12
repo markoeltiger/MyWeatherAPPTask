@@ -21,41 +21,38 @@ class CurrentWeatherViewModel @Inject constructor(
     private val _weatherState = MutableStateFlow<CurrentWeatherState?>(null)
     val weatherState: StateFlow<CurrentWeatherState?> = _weatherState
 
-    // StateFlow to manage loading state
     private val _isLoading = MutableStateFlow(true)
     val isLoading: StateFlow<Boolean> = _isLoading
 
 
-
     internal fun fetchWeatherData(city: String) {
-            viewModelScope.launch {
-                _isLoading.value = true
-                getCurrentWeatherUseCase.execute(city).collect { result ->
-                    when (result) {
-                        is CurrentWeatherResult.SuccessResult -> {
-
-
-                            currentWeather = CurrentWeatherState(
-                                temperature = result.currentWeather.temperature.toString(),
-                                city = result.currentWeather.city,
-                                precipitation = result.currentWeather.humidity.toString(),
-                                maxTemp = result.currentWeather.maxTemperature.toString(),
-                                minTemp = result.currentWeather.minTemperature.toString(),
-                            )
-                            _weatherState.value = currentWeather
-                        }
-
-                        else -> {
-                            Log.d("TAG", "fetchWeatherData: Error")
-                        }
+        viewModelScope.launch {
+            _isLoading.value = true
+            getCurrentWeatherUseCase.execute(city).collect { result ->
+                when (result) {
+                    is CurrentWeatherResult.SuccessResult -> {
+                        currentWeather = CurrentWeatherState(
+                            temperature = result.currentWeather.temperature.toString(),
+                            city = result.currentWeather.city,
+                            precipitation = result.currentWeather.humidity.toString(),
+                            maxTemp = result.currentWeather.maxTemperature.toString(),
+                            minTemp = result.currentWeather.minTemperature.toString(),
+                            icon = result.currentWeather.iconUrl.toString()
+                        )
+                        _weatherState.value = currentWeather
                     }
 
+                    else -> {
+                        Log.d("TAG", "fetchWeatherData: Error")
+                    }
                 }
 
-
-
-                _isLoading.value = false
             }
+
+
+
+            _isLoading.value = false
+        }
     }
 }
 

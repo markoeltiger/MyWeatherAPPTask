@@ -8,7 +8,7 @@ data class ForcasttWeatherModel (
     val localTime: String,
     val temperature: Double,
     val minTemperature: Double,
-    val maxTemperature: Any,
+    val maxTemperature: Double,
     val condition: String,
     val iconUrl: String,
     val humidity: Any,

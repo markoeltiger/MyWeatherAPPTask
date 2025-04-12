@@ -85,5 +85,8 @@ dependencies {
     implementation(libs.lifecycle.runtime.compose)
     implementation(libs.navigation.compose)
     implementation (libs.datastore)
-
+    //Glide
+    implementation(libs.glide)
+    implementation(libs.glide.compose)
+    kapt(libs.glide.compiler)
 }

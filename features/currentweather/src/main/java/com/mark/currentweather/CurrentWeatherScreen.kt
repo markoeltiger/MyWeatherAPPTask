@@ -37,6 +37,8 @@ import androidx.compose.ui.platform.LocalContext
 import com.mark.uikit.colors.PurpleDark
 import com.mark.uikit.colors.PurpleLight
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
 import com.mark.core.navigation.Screen
 import com.mark.core.navigation.Screen.CurrentWeather
 import com.mark.core.navigation.withCity
@@ -104,12 +106,18 @@ fun LoadingIndicator() {
     }
 }
 
+@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun WeatherHeader(weatherState: CurrentWeatherState?) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
+        GlideImage(
+            model = weatherState?.icon,
+            contentDescription = "Weather Icon",
+            modifier = Modifier.size(100.dp),
+            contentScale = ContentScale.Crop
+        )
         Image(
             painter = painterResource(id = com.mark.core.R.drawable.applogo), // Replace with your drawable
             contentDescription = "Weather Icon",

@@ -38,7 +38,7 @@ class ForecastViewModel @Inject constructor(
                     is ForcasttWeatherResult.SuccessResult -> {
 
 
-                        _state.value = _state.value.copy(days = result.forecastWeather.forcast.forecastday)
+                        _state.value = _state.value.copy(minTemp = result.forecastWeather.minTemperature.toString(),maxTemp = result.forecastWeather.maxTemperature.toString(),days = result.forecastWeather.forcast.forecastday)
 
                     }
 
