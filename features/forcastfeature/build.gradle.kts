@@ -75,4 +75,9 @@ dependencies {
     implementation(libs.glide)
     implementation(libs.glide.compose)
     kapt(libs.glide.compiler)
+    implementation(libs.junit)
+    implementation(libs.androidx.junit)
+    implementation(libs.coroutines.test)
+    implementation(libs.turbine)
+    implementation(libs.mockk)
 }

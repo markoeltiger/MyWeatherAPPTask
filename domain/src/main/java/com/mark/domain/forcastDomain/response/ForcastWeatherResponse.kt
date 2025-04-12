@@ -148,6 +148,6 @@ data class Forecastday (
 )
 data class Forecast (
 
-    @SerializedName("forecastday") var forecastday : List<Forecastday>
+    @SerializedName("forecastday") var forecastday: List<Forecastday>?
 
 )

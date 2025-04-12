@@ -29,6 +29,7 @@ class ForecastViewModel @Inject constructor(
             is ForecastIntent.RefreshForecast -> refreshForecast()
         }
     }
+
     private fun loadForecast(city: String) {
         viewModelScope.launch {
             _state.value = _state.value.copy(isLoading = true, city = city)
@@ -38,7 +39,14 @@ class ForecastViewModel @Inject constructor(
                     is ForcasttWeatherResult.SuccessResult -> {
 
 
-                        _state.value = _state.value.copy(humadity = result.forecastWeather.humidity.toString(), uvIndex = result.forecastWeather.uvIndex,condition = result.forecastWeather.condition.toString(), minTemp = result.forecastWeather.minTemperature.toString(),maxTemp = result.forecastWeather.maxTemperature.toString(),days = result.forecastWeather.forcast.forecastday)
+                        _state.value = _state.value.copy(
+                            humadity = result.forecastWeather.humidity.toString(),
+                            uvIndex = result.forecastWeather.uvIndex,
+                            condition = result.forecastWeather.condition.toString(),
+                            minTemp = result.forecastWeather.minTemperature.toString(),
+                            maxTemp = result.forecastWeather.maxTemperature.toString(),
+                            days = result.forecastWeather.forcast.forecastday
+                        )
 
                     }
 
@@ -52,6 +60,7 @@ class ForecastViewModel @Inject constructor(
 
         }
     }
+
     private fun refreshForecast() {
         loadForecast(_state.value.city)
     }
